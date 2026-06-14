@@ -38,25 +38,20 @@ class DSU {
     // Merge the roots of two nodes 'a' and 'b'.
     // Note: union is a restricted keyword in C++
     bool unite(int a, int b) {
-        if (connected(a, b)) {
-            return false;
-        }
+        int root_a = find(a);
+        int root_b = find(b);
 
-        int find_a = find(a);
-        int find_b = find(b);
+        if (root_a == root_b) return false;
 
         // Merge to larger size. We update the root, not a or b.
         // We don't care about updating the size index of the smaller component
         // as that index is no longer a root.
-        if (this->size[find_a] >= this->size[find_b]) {
-            this->parents[find_b] = find_a;
+        if (this->size[root_a] < this->size[root_b]) {
+            std::swap(root_a, root_b);
+        } 
 
-            this->size[find_a] += this->size[find_b];
-        } else {
-            this->parents[find_a] = find_b;
-
-            this->size[find_b] += this->size[find_a];
-        }
+        this->parents[root_b] = root_a;
+        this->size[root_a] += this->size[root_b];
 
         this->num_components--;
 
@@ -65,10 +60,10 @@ class DSU {
 
     // Given nodes 'a' and 'b' return if they are in the same connected component.
     bool connected(int a, int b) {
-        int find_a = find(a);
-        int find_b = find(b);
+        int root_a = find(a);
+        int root_b = find(b);
 
-        return find_a == find_b;
+        return root_a == root_b;
     }
 
     // return total number of connected components.
