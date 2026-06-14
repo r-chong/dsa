@@ -1,0 +1,33 @@
+# Compiled binaries
+*.out
+*.exe
+*.app
+*.bin
+
+# Object / compiled intermediate files
+*.o
+*.obj
+*.so
+*.dll
+*.dylib
+*.a
+*.lib
+
+# Debug symbols
+*.dSYM/
+*.pdb
+
+# Build folders
+build/
+cmake-build-*/
+Debug/
+Release/
+
+# CMake files
+CMakeFiles/
+CMakeCache.txt
+cmake_install.cmake
+Makefile
+
+# VS Code local config, optional
+.vscode/
