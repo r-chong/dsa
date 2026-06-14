@@ -23,18 +23,16 @@ class DSU {
     }
 
     // Given a node 'a', find the root of the associated connected component.
+    // Note that parents[a] is the next node upwards, not the final root.
+    // We know a node is the final root if: it is equal to its parent.
     int find(int a) {
-        int idx = a;
-
-        while (true) {
-            if (this->parents[idx] == idx) {
-                break;
-            } else {
-                idx = this->parents[idx];
-            }
+        // Path compression optimization: instead of read-only loop traversal,
+        // update each node in component to point to its root.
+        if (this->parents[a] != a) {
+            this->parents[a] = find(this->parents[a]);
         }
 
-        return idx;
+        return this->parents[a];
     }
 
     // Merge the roots of two nodes 'a' and 'b'.
