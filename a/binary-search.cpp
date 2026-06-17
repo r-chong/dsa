@@ -1,10 +1,12 @@
 // Naive sorted container: array iterative
 int binarySearch(int target, vector<int> &arr) {
-    int lo = 0
+    int lo = 0;
     int hi = arr.size() - 1;
-    int mid = lo + (hi - lo) / 2;
 
-    while (lo < hi) {
+    // note <= or else we miss last element
+    while (lo <= hi) {
+        int mid = lo + (hi - lo) / 2;
+
         if (arr[mid] == target) {
             return mid;
         } else if (arr[mid] < target ) {
@@ -19,6 +21,9 @@ int binarySearch(int target, vector<int> &arr) {
 
 // Naive sorted container: array recursive
 int binarySearch(int lo, int hi, int target, vector<int> &arr) {
+    // note this base case or else we infinitely loop if cannot find
+    if (lo > hi) return -1;
+
     int mid = lo + (hi - lo) / 2;
 
     if (arr[mid] == target) {
@@ -30,10 +35,10 @@ int binarySearch(int lo, int hi, int target, vector<int> &arr) {
     }
 }
 
-// Naive sorted container: binary search tree iterative
-int binarySearch(int target, TreeNode *n) {
+// Naive sorted container: binary search tree recursive
+TreeNode *n binarySearch(int target, TreeNode *n) {
     if (!n) {
-        return -1;
+        return nullptr;
     } else if (n->val == target) {
         return n;
     } else if (n->val < target) {
@@ -41,6 +46,21 @@ int binarySearch(int target, TreeNode *n) {
     } else {
         return binarySearch(target, n->left);
     }
+}
+
+// Naive sorted container: binary search tree iterative
+TreeNode *n binarySearch(int target, TreeNode *n) {
+    while (n) {
+        if (n->val == target) {
+            return n;
+        } else if (n->val < target) {
+            n = n->right;
+        } else {
+            n = n->left;
+        }
+    }
+
+    return nullptr;
 }
 
 // Accessor
