@@ -4,19 +4,14 @@ public:
         int left = 0;
         int right = 1;
         int max_profit = 0;
-        int profit;
 
         while (right < prices.size()) { 
             if (prices[right] > prices[left]) {
-                profit = prices[right] - prices[left];
-
-                if (profit > max_profit) {
-                    max_profit = profit;
-                }
+                max_profit = max(max_profit, prices[right] - prices[left]);
             } else {
                 left = right;
             }
-            ++right;
+            right++;
         }
 
         return max_profit;
@@ -26,6 +21,5 @@ public:
 // divergences:
 // no need to keep track of indices
 // also no need to keep track of past left,right as that has already been processed
-// forgot how to move left. I thought it was
-// left = std::min(prices[left]); // ???
-// but instead it was an else case
+// 2026-06-18
+// took a bit of time thinking about how to update left, and which of {left, right} increments every step
