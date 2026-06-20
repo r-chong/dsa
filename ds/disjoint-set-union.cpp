@@ -26,8 +26,7 @@ class DSU {
     // Note that parents[a] is the next node upwards, not the final root.
     // We know a node is the final root if: it is equal to its parent.
     int find(int a) {
-        // Path compression optimization: instead of read-only loop traversal,
-        // update each node in component to point to its root.
+        // path compression
         if (this->parents[a] != a) {
             this->parents[a] = find(this->parents[a]);
         }
@@ -43,9 +42,7 @@ class DSU {
 
         if (root_a == root_b) return false;
 
-        // Merge to larger size. We update the root, not a or b.
-        // We don't care about updating the size index of the smaller component
-        // as that index is no longer a root.
+        // union by size
         if (this->size[root_a] < this->size[root_b]) {
             std::swap(root_a, root_b);
         } 
