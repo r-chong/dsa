@@ -94,7 +94,7 @@ template <typename Pred> int binarySearch(int lo, int hi, Pred ok) {
         if (ok(mid)) {
             hi = mid;
         } else {
-            lo = mid++;
+            lo = mid + 1;
         }
     }
 
