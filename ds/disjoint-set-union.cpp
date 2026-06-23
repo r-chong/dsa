@@ -11,15 +11,15 @@ class DSU {
     public:
 
     DSU(int n) {
-        this->parents.resize(n);
-        this->size.resize(n);
-        this->num_components = n;
+        parents.resize(n);
+        size.resize(n);
+        num_components = n;
 
-        for (int i = 0; i < this->parents.size(); i++) {
-            this->parents[i] = i;
+        for (int i = 0; i < parents.size(); i++) {
+            parents[i] = i;
         }
 
-        std::fill(this->size.begin(), this->size.end(), 1);
+        std::fill(size.begin(), size.end(), 1);
     }
 
     // Given a node 'a', find the root of the associated connected component.
@@ -27,11 +27,11 @@ class DSU {
     // We know a node is the final root if: it is equal to its parent.
     int find(int a) {
         // path compression
-        if (this->parents[a] != a) {
-            this->parents[a] = find(this->parents[a]);
+        if (parents[a] != a) {
+            parents[a] = find(parents[a]);
         }
 
-        return this->parents[a];
+        return parents[a];
     }
 
     // Merge the roots of two nodes 'a' and 'b'.
@@ -43,14 +43,14 @@ class DSU {
         if (root_a == root_b) return false;
 
         // union by size
-        if (this->size[root_a] < this->size[root_b]) {
+        if (size[root_a] < size[root_b]) {
             std::swap(root_a, root_b);
         } 
 
-        this->parents[root_b] = root_a;
-        this->size[root_a] += this->size[root_b];
+        parents[root_b] = root_a;
+        size[root_a] += size[root_b];
 
-        this->num_components--;
+        num_components--;
 
         return true;
     }
@@ -65,6 +65,6 @@ class DSU {
 
     // return total number of connected components.
     int count() {
-        return this->num_components;
+        return num_components;
     }
 };
