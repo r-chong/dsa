@@ -31,3 +31,6 @@ public:
         return isBalanced(root->left) && isBalanced(root->right);
     }
 };
+// divergences:
+// - created new function that the main could've been, i did delete it though
+// - used || instead of abs
