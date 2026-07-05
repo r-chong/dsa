@@ -24,3 +24,6 @@ public:
         return root;
     }
 };
+// divergences:
+// - forgot to check nullptr case
+// - low confidence but it was actually 90% there
