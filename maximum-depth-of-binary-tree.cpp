@@ -22,3 +22,8 @@ public:
 
 // divergences:
 // the +1 belongs at the node you’re currently standing on, not as some special-case “return 1” somewhere.
+
+// - made unnecessary extra function
+// - when do i need a separate function for these tree problems?
+// If the function can say “answer for this node = combine answers from children”, no helper.
+// If the function needs to carry information downward or update an outside/global answer, use a helper.
