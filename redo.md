@@ -1,0 +1,5 @@
+- Search in Rotated Sorted Array
+- Largest Rectangle in Histogram
+- Minimum Window Substring
+- Permutation in String
+- Median of two sorted arrays
