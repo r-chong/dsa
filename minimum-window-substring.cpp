@@ -22,7 +22,7 @@ public:
     string minWindow(string s, string t) {
         int n = s.size();
 
-        array<int, 52> freq_t{};
+        
 
         // populate freq_t
         for (char c : t) {
@@ -120,3 +120,51 @@ public:
 // divergences:
 // - array takes 2 args
 // - substr function (start, length)
+
+// solution from chatgpt:
+// I am including it now as I've internalized it more now.
+class Solution {
+public:
+    string minWindow(string s, string t) {
+        vector<int> need(128, 0);
+        
+        for (char c : t) {
+            need[c]++;
+        }
+
+        int missing = t.size();
+        int l = 0;
+        int bestStart = 0;
+        int bestLen = INT_MAX;
+
+        for (int r = 0; r < s.size(); r++) {
+            char front = s[r];
+            if (need[front] > 0) {
+                missing--;
+            }
+            // relative
+            need[front]--;
+
+            while (missing == 0) {
+                int len = r - l + 1;
+
+                if (len < bestLen) {
+                    bestLen = len;
+                    bestStart = l;
+                }
+
+                char back = s[l];
+                need[back]++;
+
+                if (need[back] > 0) {
+                    missing++;
+                }
+                
+                l++;
+            }
+        }
+
+        if (bestLen == INT_MAX) return "";
+        return s.substr(bestStart, bestLen);
+    }
+};
