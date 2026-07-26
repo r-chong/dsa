@@ -18,9 +18,8 @@ class Solution {
         current.pop_back();
     }
 public:
-    // TC: O(k), SC: O(n)
-    // n = number of elements in candidates
-    // k = number of subsets
+    // Time: O(2^(n + target / m))
+    // Space: O(n + target / m) excluding output
     vector<vector<int>> combinationSum(vector<int>& candidates, int target) {
         vector<int> current;
         vector<vector<int>> res;
