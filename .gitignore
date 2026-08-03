@@ -30,4 +30,4 @@ cmake_install.cmake
 Makefile
 
 # VS Code local config, optional
-.vscode/
+.vscode/incorrect/
