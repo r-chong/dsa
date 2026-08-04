@@ -1,6 +1,7 @@
 class Solution {
 public:
-    int rob(vector<int>& nums) {
+    // TC: O(n), SC: O(n)
+    int robIterative(vector<int>& nums) {
         // dp
 
         int n = nums.size();
@@ -30,4 +31,51 @@ public:
         // just want one value
         return dp[n - 1];
     }
+    
+    // RECURSIVE SOLUTION
+
+    // TC: O(2^n), SC: O(n)
+    // although we don't use additional STORAGE, each recursive call stays on the call stack until its children return, using memory.
+    // n = size of nums
+    int visitHouseNaive(int i, bool robbedPrev, vector<int>&nums) {
+        if (i >= nums.size()) return 0;
+
+        int skip = visitHouse(i + 1, false, nums);
+
+        int rob = 0;
+        if (!robbedPrev) {
+            rob = nums[i] + visitHouse(i + 1, true, nums);
+        }
+
+        return max(skip, rob);
+    }
+
+    // TC: O(n), SC: O(n) auxilary
+    // n = size of nums
+    // O(n) as each i is solved once using DP
+    int visitHouse(int i, vector<int> &dp, vector<int>&nums) {
+        if (i >= nums.size()) return 0;
+        if (dp[i] != -1) return dp[i];
+
+        int skip = visitHouse(i + 1, dp, nums);
+
+        int rob = nums[i] + visitHouse(i + 2, dp, nums);
+
+        dp[i] = max(skip, rob);
+        return dp[i];
+    }
+    
+    int robRecursive(vector<int>& nums) {
+        vector<int> dp;
+        dp.resize(nums.size(), -1);
+
+        return visitHouse(0, dp, nums);
+    }
+    // divergences:
+    // - didn't add DP part
+    // - changed return of robRecursive
+    // - unnecessary robbedPrev variable
+    // - didn't understand that the naive version takes up MEMORY although not space
+    // - 
 };
+    
