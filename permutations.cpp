@@ -1,4 +1,8 @@
 class Solution {
+    // TC: O(k * n * log n)
+    // SC: O(n) auxiliary, O(k * n) including output
+    // n = number of nums
+    // k = number of permutations
     void backtrack(int choicesRemaining, vector<int> &current, set<int> &used, vector<int>& nums, vector<vector<int>> &res) {
         if (choicesRemaining == 0) {
             res.push_back(current);
@@ -36,3 +40,6 @@ public:
 // - missing sort of nums
 // - nevermind i dont actually need a sort if theres no duplicates
 // - dont need to keep track of where we've filled because we fill left-to-right - it's just choicesRemaining
+
+// analysis:
+// - Using vector<bool> used(n) indexed by i would remove the log n factor:
