@@ -37,15 +37,11 @@ public:
     // TC: O(2^n), SC: O(n)
     // although we don't use additional STORAGE, each recursive call stays on the call stack until its children return, using memory.
     // n = size of nums
-    int visitHouseNaive(int i, bool robbedPrev, vector<int>&nums) {
+    int visitHouseNaive(int i, vector<int>&nums) {
         if (i >= nums.size()) return 0;
 
-        int skip = visitHouse(i + 1, false, nums);
-
-        int rob = 0;
-        if (!robbedPrev) {
-            rob = nums[i] + visitHouse(i + 1, true, nums);
-        }
+        int skip = visitHouse(i + 1, nums);
+        int rob = nums[i] + visitHouse(i + 2, nums);
 
         return max(skip, rob);
     }
