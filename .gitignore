@@ -31,3 +31,6 @@ Makefile
 
 # VS Code local config, optional
 .vscode/incorrect/
+
+incorrect/
+notes/
