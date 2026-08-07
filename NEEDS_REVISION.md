@@ -4,6 +4,7 @@
 - Minimum Window Substring
 - Car Fleet
 - Search In Rotated Sorted Array
-- Maximum subarray
+- Maximum subarray (non kadane's)
 - All of bit manipulation
-
+- Palindrome Partitioning (canonical and DP)
+- House robber iterative
