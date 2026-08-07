@@ -1,37 +1,37 @@
 class Solution {
 public:
-    bool search(vector<int>& arr, int i, vector<int> &dp) {
+    bool search(vector<int>& arr, int i, vector<int> &memo) {
         if (i < 0 || i >= arr.size()) {
             return false;
         }
 
         // if in progress OR already processed and confirmed bad
-        if (dp[i] == 1 || dp[i] == 2) {
+        if (memo[i] == 1 || memo[i] == 2) {
             return false;
         }
 
         // start processing
         int v = arr[i];
-        dp[i] = 1;
+        memo[i] = 1;
 
         if (v == 0) { 
             return true;
         }
 
-        if (search(arr, i - v, dp) || search(arr, i + v, dp)) {
+        if (search(arr, i - v, memo) || search(arr, i + v, memo)) {
             return true;
         };
         
         // process failed, prevent future processing
-        dp[i] = 2;
+        memo[i] = 2;
         return false;
     }
  
     bool canReach(vector<int>& arr, int start) {
         int n = arr.size();
-        vector<int> dp(n, 0);
+        vector<int> memo(n, 0);
         
-        return search(arr, start, dp);
+        return search(arr, start, memo);
     }
 };
 
@@ -39,18 +39,18 @@ public:
 
 // class Solution {
 // public:
-//     bool search(vector<int>& arr, int i, vector<int> &dp) {
+//     bool search(vector<int>& arr, int i, vector<int> &memo) {
 //         if (i < 0 || i >= arr.size()) {
 //             return false;
 //         }
 
 //         // set to in progress
-//         if (dp[i] == 0) {
-//             dp[i] = 1;
+//         if (memo[i] == 0) {
+//             memo[i] = 1;
 //         }
 
 //         // false if processed and bad
-//         if (dp[i] == 2) {
+//         if (memo[i] == 2) {
 //             return false;
 //         }
 
@@ -58,23 +58,23 @@ public:
 
 //         // true if reach end
 //         if (v == 0) { 
-//             // update dp necessary?
+//             // update memo necessary?
 //             return true;
 //         }
 
-//         if (search(arr, i - v, dp) || search(arr, i + v, dp)) {
+//         if (search(arr, i - v, memo) || search(arr, i + v, memo)) {
 //             return true;
 //         };
         
-//         dp[i] = 2;
+//         memo[i] = 2;
 //         return false;
 //     }
  
 //     bool canReach(vector<int>& arr, int start) {
 //         int n = arr.size();
-//         vector<int> dp(n, 0);
+//         vector<int> memo(n, 0);
         
-//         return search(arr, start, dp);
+//         return search(arr, start, memo);
 //     }
 // };
 
@@ -82,15 +82,15 @@ public:
 
 // class Solution {
 // public:
-//     bool search(vector<int>& arr, int i, vector<int> &dp) {
+//     bool search(vector<int>& arr, int i, vector<int> &memo) {
 //         if (i < 0 || i >= arr.size()) {
 //             return false;
 //         }
 
 //         int v = arr[i];
 
-//         if (dp[i] != -1) {
-//             return dp[i];
+//         if (memo[i] != -1) {
+//             return memo[i];
 //         }
 
 //         if (v == 0) { 
@@ -99,14 +99,14 @@ public:
 
 //         // issue: looping when can't find
 //         // what is the SIMPLEST BRUTEST SOLUTION ?
-//         dp[i] = search(arr, i - v, dp) || search(arr, i + v, dp);
-//         return dp[i];
+//         memo[i] = search(arr, i - v, memo) || search(arr, i + v, memo);
+//         return memo[i];
 //     }
  
 //     bool canReach(vector<int>& arr, int start) {
 //         int n = arr.size();
-//         vector<int> dp(n, -1);
+//         vector<int> memo(n, -1);
         
-//         return search(arr, start, dp);
+//         return search(arr, start, memo);
 //     }
 // };

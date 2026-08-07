@@ -1,5 +1,22 @@
 class Solution {
 public:
+    int maxSubArrayBruteForce(vector<int>& nums) {
+        int current = 0;
+        int best = nums[0];
+
+        for (int i = 0; i < nums.size(); i++) {
+            for (int j = i; j < nums.size(); j++) {
+                current += nums[j];
+
+                best = max(best, current);
+            }
+
+            current = 0;
+        }
+
+        return best;
+    }
+
     // Kadane's: start new streak OR continue previous
 
     // TC: O(n), SC: O(1)

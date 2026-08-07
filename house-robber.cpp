@@ -2,34 +2,24 @@ class Solution {
 public:
     // TC: O(n), SC: O(n)
     int robIterative(vector<int>& nums) {
-        // dp
-
         int n = nums.size();
+        if (n == 0) return 0;
+        if (n == 1) return nums[0];
 
-        // early end conditions
-        // base cases
-        if (n == 0) {
-            return 0;
-        }
-        if (n == 1) {
-            return nums[0];
-        }
-
-        vector<int> dp(n);
+        vector<int> memo(n);
 
         // start at left side (we go left to right in time)
-        dp[0] = nums[0];
-        dp[1] = std::max(dp[0], nums[1]);
+        memo[0] = nums[0];
+        memo[1] = max(memo[0], nums[1]);
 
         for (int i = 2; i < n; i++) {
-            int skip = dp[i - 1];
-            int take = nums[i] + dp[i - 2];
+            int skip = memo[i - 1];
+            int take = nums[i] + memo[i - 2];
 
-            dp[i] = std::max(skip, take);
+            memo[i] = max(skip, take);
         }
 
-        // just want one value
-        return dp[n - 1];
+        return memo[n - 1];
     }
     
     // RECURSIVE SOLUTION
@@ -49,29 +39,25 @@ public:
     // TC: O(n), SC: O(n) auxilary
     // n = size of nums
     // O(n) as each i is solved once using DP
-    int visitHouse(int i, vector<int> &dp, vector<int>&nums) {
+    int visitHouse(int i, vector<int> &memo, vector<int>&nums) {
         if (i >= nums.size()) return 0;
-        if (dp[i] != -1) return dp[i];
+        if (memo[i] != -1) return memo[i];
 
-        int skip = visitHouse(i + 1, dp, nums);
+        int skip = visitHouse(i + 1, memo, nums);
+        int rob = nums[i] + visitHouse(i + 2, memo, nums);
 
-        int rob = nums[i] + visitHouse(i + 2, dp, nums);
-
-        dp[i] = max(skip, rob);
-        return dp[i];
+        return memo[i] = max(skip, rob);
     }
-    
     int robRecursive(vector<int>& nums) {
-        vector<int> dp;
-        dp.resize(nums.size(), -1);
+        vector<int> memo;
+        memo.resize(nums.size(), -1);
 
-        return visitHouse(0, dp, nums);
+        return visitHouse(0, memo, nums);
     }
     // divergences:
     // - didn't add DP part
     // - changed return of robRecursive
     // - unnecessary robbedPrev variable
     // - didn't understand that the naive version takes up MEMORY although not space
-    // - 
 };
     

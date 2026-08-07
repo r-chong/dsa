@@ -34,8 +34,7 @@ public:
             return memo[i];
         }
 
-        memo[i] = dfs(i + 1, n, memo) + dfs(i + 2, n, memo);
-        return memo[i];
+        return memo[i] = dfs(i + 1, n, memo) + dfs(i + 2, n, memo);
     }
 
     int climbStairs(int n) {
@@ -65,8 +64,7 @@ public:
         if (i == n) return 1;
         if (memo[i] != -1) return memo[i];
 
-        memo[i] = ways(i + 1, memo, n) + ways(i + 2, memo, n);
-        return memo[i];
+        return memo[i] = ways(i + 1, memo, n) + ways(i + 2, memo, n);
     }
     int climbStairs(int n) {   
         vector<int> memo;
