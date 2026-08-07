@@ -15,8 +15,7 @@ class Solution {
             rob = nums[i] + visitHouse(i + 2, robbedFirst, memo, nums);
         }
 
-        memo[i] = max(skip, rob);
-        return memo[i];
+        return memo[i] = max(skip, rob);
     }
 public:
     // TC: O(n), SC: O(n)
