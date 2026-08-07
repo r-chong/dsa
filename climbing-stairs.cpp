@@ -3,8 +3,9 @@
 class Solution {
 public:
     // DFS brute force, work stair 0 upward
-    // TC: O(2^n), SC: O(1) 
+    // TC: O(2^n), SC: O(n) 
     // Each branch has two calls, and the longest path is from 0 to n, meaning 2^n calls
+    // Correctness: 
     int dfs(int i, int n) {
         if (i > n) {
             return 0;
@@ -43,23 +44,40 @@ public:
         return dfs(0, n, memo);
     }
 
-    // Top down recursive memoization, n = stairs remaining aka work downwards (version 1)
+    // DP SECTION:
+    // Two equivalent ways to define the DP state:
+    //
+    // 1. i = current stair:
+    //    ways(i) = ways(i + 1) + ways(i + 2)
+    //
+    // 2. n = stairs remaining:
+    //    ways(n) = ways(n - 1) + ways(n - 2)
+    //
+
+    // i = current stair
     // TC: O(n), SC: O(n)
-    int climbStairs1(int n) {
-        std::unordered_map<int, int> visited;
+    // each subproblem (index) is computed once. 
+    // Why DP:
+    // - overlapping subproblems; different decisions (steps) can reach the same i
+    // - each i collapses history - The current state i contains all the information needed to determine the future. How you reached i does not matter.
+    int ways(int i, vector<int> &memo, int n) {
+        if (i > n) return 0;
+        if (i == n) return 1;
+        if (memo[i] != -1) return memo[i];
 
-        if (n < 0) return 0;
-        if (n == 0) return 1;
-        
-        if (visited.contains(n)) {   
-            return visited[n];
-        } 
-
-        visited[n] = climbStairs(n - 1) + climbStairs(n - 2);
-        return visited[n];
+        memo[i] = ways(i + 1, memo, n) + ways(i + 2, memo, n);
+        return memo[i];
     }
+    int climbStairs(int n) {   
+        vector<int> memo;
+        memo.resize(n, -1);
 
-    // Top down recursive memoization, n = stairs remaining aka work downwards (version 2)
+        return ways(0, memo, n);
+    }
+    // divergences:
+    // - messed up order of the base cases
+
+    // Top down recursive memoization, state = # stairs remaining
     // TC: O(n), SC: O(n)
     int dfs(int n, std::vector<int> &memo) {
         if (n < 0) {
@@ -73,7 +91,6 @@ public:
         memo[n] = dfs(n - 1, memo) + dfs(n - 2, memo);
         return memo[n];
     }
-
     int climbStairs(int n) {
         std::vector<int> memo(n + 1, -1);
 
