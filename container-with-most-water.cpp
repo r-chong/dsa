@@ -1,3 +1,22 @@
+// TC: O(n^2), SC: O(1)
+// Brute force
+class Solution {
+public:
+    int maxArea(vector<int>& height) {
+        int maxA = 0;
+
+        for (int i = 0; i < height.size(); i++) {
+            for (int j = i; j < height.size(); j++) {
+                int area = min(height[i], height[j]) * (j - i);
+
+                maxA = max(maxA, area);
+            }
+        }
+
+        return maxA;    
+    }
+};
+
 // TC: O(n), SC: O(1)
 class Solution {
 public:
