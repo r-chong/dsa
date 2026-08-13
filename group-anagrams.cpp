@@ -42,3 +42,29 @@ class Solution {
 
 // - The '#' delimiter prevents ambiguous keys.
 //   Example: [1, 11] vs [11, 1] should not both become "111".
+
+// Suboptimal but short solution
+class Solution {
+public:
+    // TC: O(n*k*logk + n*k*logn), SC: O(nk)
+    vector<vector<string>> groupAnagrams(vector<string>& strs) {
+        map<multiset<char>, vector<string>> groups;
+
+        for (string s : strs) {
+            multiset<char> word(s.begin(), s.end());
+            groups[word].push_back(s);
+        }
+
+        vector<vector<string>> res;
+
+        for (auto& [key, group] : groups) {
+            res.push_back(group);
+        }
+
+        return res;
+    }
+};
+// divergences:
+// - used unordered set instead of a map, forgot that we need key:value pair
+// - did if(groups.contains(s)) but I can just directly do groups[word].push_back(s);
+// - used unordered_map instead of map. unordered_map needs to hash its key type, and C++ does not provide a built-in std::hash<std::multiset<char>>. but map just compares keys
