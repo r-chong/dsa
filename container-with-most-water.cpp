@@ -25,7 +25,7 @@ public:
 
         int l = 0;
         int r = height.size() - 1;
-        while (l < r) {
+    while (l < r) {
             int h = min(height[l], height[r]);
             int w = r - l;
 
@@ -47,3 +47,35 @@ public:
 // noticed width starts large and only shrinks :)
 // had the right skipping idea
 // this was a good solve
+
+class Solution {
+public:
+    // TC: O(n), SC: O(1)
+    int maxArea(vector<int>& height) {
+        int n = height.size();
+
+        int maxA = 0;
+
+        int l = 0;
+        int r = n - 1;
+
+        while (l < r) {
+            int a = min(height[l], height[r]) * (r - l);
+
+            maxA = max(maxA, a);
+
+            if (height[l] >= height[r]) {
+                r--;
+            } else {
+                l++;
+            }
+        }
+
+        return maxA;
+    }
+};
+// divergences:
+// - fumbled variables a little at the start but
+
+// convergences:
+// - solved with brute force -> optimal in 8:48 without references or syntax errors.
