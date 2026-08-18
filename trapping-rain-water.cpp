@@ -26,7 +26,7 @@ public:
     }
 };
 
-// maxLeft maxRight array solution
+// maxLeft maxRight O(n) memory (array) solution
 // TC: O(n), SC: O(n)
 class Solution {
 public:
@@ -58,3 +58,48 @@ public:
 // divergences:
 // - assumed maxLeft and maxRight are 0
 // - tried to do some fancy sentinel value stuff but messed up indexing
+
+// maxLeft maxRight O(1) memory (two pointer) solution
+// TC: O(n), SC: O(1)
+class Solution {
+public:
+    int trap(vector<int>& height) {
+        int n = height.size();
+        int water = 0;
+
+        int prevMaxL = height[0];
+        int prevMaxR = height[n - 1];
+
+        int l = 0;
+        int r = n - 1;
+
+        while(l < r) {
+            int maxL = max(prevMaxL, height[l]);
+            int maxR = max(prevMaxR, height[r]);
+
+            if (maxL <= maxR) {
+                water += maxL - height[l];
+                l++;
+            } else {
+                water += maxR - height[r];
+                r--;
+            }
+
+            prevMaxL = maxL;
+            prevMaxR = maxR;
+        }
+
+        return water;
+    }
+};
+// divergences:
+// - thought we need maxW (so max sub range) but in reality we just want max water total
+// - didnt set maxL and maxR to first and last value respectively
+
+// divergences:
+// - didnt preinitialize values was pushing back which caused issues
+// - used i instead of i - 1 and i + 1  for maxLRs 
+
+// divergences:
+// - didnt switch to l,r while loop
+// - need conditional water addition instead of always adding to water
