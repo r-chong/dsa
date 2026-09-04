@@ -78,3 +78,47 @@ public:
     // - line 54:has[right] <= needs[right] - the converse (has[left] <= needs[left]) is wrong when checking RHS, that counts all non-needed chars
     // - didn't know what to do with LHS
 };
+
+// simpler I believe
+class Solution {
+public:
+    bool checkInclusion(string s1, string s2) {
+        if (s1.size() > s2.size()) return false;
+        vector<int> has(26, 0);
+        vector<int> need(26, 0);
+
+        for (int i = 0; i < s1.size(); i++) {
+            need[s1[i] - 'a']++;
+        }
+
+        // init left and right side of window
+        int l = 0;
+        int r = 0;
+
+        while (r < s2.size()) {
+            has[s2[r] - 'a']++;
+            r++;
+
+            // grow window to size of s1   
+            if (r < s1.size()) {
+                continue;
+            }
+
+            if (has == need) return true;
+            
+            has[s2[l] - 'a']--;
+            l++;
+        }
+
+        return false;
+    }
+};
+// divergences:
+// - forgot to populate need
+// - didnt index by letter
+// - when using a loop to go through i < 128, was indexing by letter which OOB
+// - knew general idea but didnt have good thinking
+// - could've just directly compared vectors
+// - knew i should shrink window but didnt know where to put it
+// - set r to 1 at start
+// - didnt consider edge case of s1 > s2
