@@ -55,3 +55,34 @@ public:
 // AI: "Main correction: your old logic mixed two different interpretations of i.
 // i <= n - k means “i is the window start.”
 // i >= k - 1 means “i is the window end.”
+
+class Solution {
+public:
+    // TC: O(nlogk), SC: O(n)
+    // multiset is balanced binary tree implementation, so n insertions * logn from binary tree insertion/deletion/search (all logn operations)
+    // and size of tree is at most k (due to window size)
+    vector<int> maxSlidingWindow(vector<int>& nums, int k) {
+        int l = 0;
+        int r = 0;
+
+        vector<int> answer;
+        multiset<int> window;
+        
+        while (r < nums.size()) {
+            window.insert(nums[r]);
+
+            // if r < k then we're growing still and should not update answer
+            if (window.size() >= k) {
+                auto max_val = *window.rbegin();
+                answer.push_back(max_val);
+                window.erase(window.find(nums[l]));
+                l++;
+            }
+            r++;
+        }
+
+        return answer;
+    }
+};
+// divergences:
+// - growing case - off-by-one so was not pushing answer in all cases and not updating correctly
