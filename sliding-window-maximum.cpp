@@ -85,4 +85,7 @@ public:
     }
 };
 // divergences:
+// - didnt think of a multiset
 // - growing case - off-by-one so was not pushing answer in all cases and not updating correctly
+
+// exercise for next time: implement with heap w/ lazy deletion
