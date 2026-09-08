@@ -89,3 +89,29 @@ public:
 // - growing case - off-by-one so was not pushing answer in all cases and not updating correctly
 
 // exercise for next time: implement with heap w/ lazy deletion
+
+class Solution {
+public:
+    // TC: O(n log n) worst-case, SC: O(n)
+    // lazy deletion means expired elements can remain buried in the heap
+    vector<int> maxSlidingWindow(vector<int>& nums, int k) {
+        priority_queue<pair<int, int>> pq; // {value, index}
+        vector<int> res;
+
+        for (int i = 0; i < nums.size(); i++) {
+            pq.push({nums[i], i});
+
+            // Remove expired elements only if they reach the top.
+            while (!pq.empty() && pq.top().second <= i - k) {
+                pq.pop();
+            }
+
+            // First complete window ends at i = k - 1.
+            if (i >= k - 1) {
+                res.push_back(pq.top().first);
+            }
+        }
+
+        return res;
+    }
+};
