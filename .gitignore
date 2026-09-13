@@ -34,3 +34,5 @@ Makefile
 
 incorrect/
 notes/
+.DS_Store/
+.cph/
