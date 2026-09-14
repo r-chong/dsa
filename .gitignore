@@ -34,5 +34,7 @@ Makefile
 
 incorrect/
 notes/
-.DS_Store/
 .cph/
+cses/.DS_Store
+cses/repetitions.cpp
+.DS_Store
