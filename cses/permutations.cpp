@@ -25,3 +25,7 @@ int main() {
     
     return 0;
 }
+// divergences:
+// - for some reason I thought i could do this in O(1) because it seemed mathy
+// - struggled with loop, should have used two
+// - didn't hardcode case n=4
