@@ -18,8 +18,6 @@ class Solution {
         PLACED_CAMERA
     };
 
-    // f(node) = min cameras to monitor the subtree given the status{covered, uncovered} of its parent
-    // recurrence: min(place left, place right, skip left, skip right)
     int cover(TreeNode* node) { 
         if (!node) {
             return IS_COVERED;
