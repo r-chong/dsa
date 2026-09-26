@@ -76,8 +76,36 @@ public:
         return shortestPathLen + 1;
     }
 };
+// CHATGPT:
 // divergences:
+// - I created buckets but then I started to traverse them. See below for different mindsets
 // - incremented i in the k loop
 // - had to search how to loop and print out a unordered map
 // - had to look up level by level bfs
 // - forgot to update visited
+
+// NEETCODE:
+// divergences:
+// - Neetcode included a case where the destination word is in the wordlist already, in which case no characters have to be changed.
+// - He used std::deque for his queue instead of std::queue
+// - His queue contains actual words like "hit", "hot", "dot". wildcard strings are only an indexing mechanism for finding neighbors. so they are just keys in a hash map that let you quickly ask: “Which words differ from this word by exactly one character?”
+// - He added the beginning word to the set of visited
+// - He used level order traversal but did not do an additional loopover for each combination of begin word
+
+// convergences:
+// - Used the same idea for the * building
+// - He used the init path=1, return +1 method (we count nodes not edges so must include start and end. Either offset by +2 at the end or update the init as well)
+
+// Aadi:
+// divergences:
+// - He had parallel unordered_map<string, vector<string>> : "graph" and "buckets". I think buckets held the Kleene Star/wildcard patterns while graph had the real strings
+// - When building the graph, he pushed the word patterns to the buckets
+// - He used range-based for loop; is that advantageous for here?
+// - He used one initialization of s and reset it each time
+// - He used std::deque instead of std::queue
+// - He simply used set instead of map for visited (any chance of duplicates?)
+// - He cout'ed throughout; size of graph... 
+// - He initialized time to 0
+
+// convergences: 
+// - He used level order traversal with variable named "time"
