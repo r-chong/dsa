@@ -8,7 +8,7 @@ public:
 
         for (auto& b : buildings) {
             pts.push_back({b[0], 0, b[2], b[1]});
-            pts.push_back({b[1], 1, b[2], b[1]});
+            pts.push_back({b[1], 1, 0, 0});
         }
 
         sort(pts.begin(), pts.end());
@@ -63,6 +63,9 @@ public:
 // - my ordering of everything happening was wrong
 // - could not work with ranged based for loop
 // - didnt add the RHS of sweepline for some reason
+
+// revisions:
+// - didn't need to store redundant information; can have different fields if i gate on type==
 
 // divergences(mindsolve):
 // - was too granular tried to enumerate left/right edge cases individually
