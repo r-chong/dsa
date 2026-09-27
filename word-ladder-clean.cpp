@@ -83,3 +83,41 @@ public:
 
 // convergences:
 // - remembered to update visited on neighbour check not when it becomes current
+
+// Non bucket approach???
+int ladderLength(string beginWord, string endWord, vector<string>& wordList) {
+    unordered_set<string> words(wordList.begin(), wordList.end());
+
+    if (!words.contains(endWord)) return 0;
+
+    queue<pair<string, int>> q;
+    q.push({beginWord, 1});
+
+    words.erase(beginWord);
+
+    while (!q.empty()) {
+        auto [word, dist] = q.front();
+        q.pop();
+
+        if (word == endWord) return dist;
+
+        for (int i = 0; i < word.size(); i++) {
+            char original = word[i];
+
+            for (char c = 'a'; c <= 'z'; c++) {
+                if (c == original) continue;
+
+                word[i] = c;
+
+                if (words.contains(word)) {
+                    q.push({word, dist + 1});
+                    words.erase(word);
+                }
+            }
+
+            word[i] = original;
+        }
+    }
+
+    return 0;
+}
