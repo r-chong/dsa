@@ -1,3 +1,5 @@
+// TC: O(nlogn), SC: O(n^2)
+// It TLE's so next time I must follow suggestion in comments
 class Solution {
     vector<vector<long long>> memo;
     
@@ -57,3 +59,8 @@ public:
 // - noted that meetings seems adequate don't need a new events vector for sweepline which seems accurate
 // - O/1 knapsack interval DP
 // - logic was pretty good
+
+// chatgpt:
+// - to prevent TLE due to allocation of O(n^2) entries, I should keep: 
+// - best[i] = best earnings from i onward whose end time has not been subtracted
+// - first[i] = best earnings from i onward when no meeting has been selected yet
