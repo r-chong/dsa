@@ -1,3 +1,61 @@
+// Linked List solution
+// TC: O(1), SC: O(1)
+class LRUCache {
+    int cap;
+    // list in order of least to most recently used
+    // the front is LRU and back is MRU
+    list<Node> lru;
+    // key to a node
+    unordered_map<int, list<Node>::iterator> map;
+public:
+    LRUCache(int capacity) {
+        cap = capacity;
+    }
+    
+    int get(int key) {
+        if (!map.contains(key)) return -1;
+
+        // update LRU
+        auto it = map[key];
+
+        // move this node to the front in O(1)
+        lru.splice(lru.begin(), lru, it);
+
+        return it->val;
+    }
+    
+    void put(int key, int value) {
+        if (map.contains(key)) {
+            auto it = map[key];
+            it->val = value;
+            lru.splice(lru.begin(), lru, it);
+            return;
+        }
+
+        // only evict when inserting a NEW key
+        if (map.size() == cap) {
+            int oldKey = lru.back().key;
+            lru.pop_back();
+            map.erase(oldKey);
+        }
+
+        lru.push_front({key, value});
+        map[key] = lru.begin();
+    }
+};
+// divergences:
+// - didnt know lru.splice(lru.begin(), lru, it);
+// - with iterator we seem to use . instead of -> syntax
+// - was evicting even if key already exists (no issue with cap)
+// - declaration of variable with deduced type 'auto' requires an initializer
+
+/**
+ * Your LRUCache object will be instantiated and called as such:
+ * LRUCache* obj = new LRUCache(capacity);
+ * int param_1 = obj->get(key);
+ * obj->put(key,value);
+ */
+
 // O(logn) Priority Queue solution. It's cool but this doesn't meet the O(1) constraints.
 class LRUCache {
     // min heap, with the weight being the earliest time seen and the value being key
